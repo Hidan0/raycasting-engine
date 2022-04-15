@@ -12,15 +12,21 @@ fn main() {
     initscr();
     noecho();
 
-    dda(Point { x: 0, y: 0 }, Point { x: 0, y: 10 });
-    dda(Point { x: 6, y: 5 }, Point { x: 9, y: 10 });
-    dda(Point { x: 10, y: 10 }, Point { x: 3, y: 18 });
+    start_color();
+    
+    init_pair(1, COLOR_RED, COLOR_RED);
+    init_pair(2, COLOR_BLUE, COLOR_BLUE);
+    init_pair(3, COLOR_GREEN, COLOR_GREEN);
+
+    dda(Point { x: 0, y: 0 }, Point { x: 20, y: 50 }, 1);
+    dda(Point { x: 0, y: 0 }, Point { x: 50, y: 50 }, 2);
+    dda(Point { x: 0, y: 0 }, Point { x: 50, y: 20 }, 3);
 
     getch();
     endwin();
 }
 
-fn dda(p1: Point, p2: Point) {
+fn dda(p1: Point, p2: Point, color: i16) {
     let dx = p2.x - p1.x;
     let dy = p2.y - p1.y;
 
@@ -36,7 +42,9 @@ fn dda(p1: Point, p2: Point) {
 
     let (mut x, mut y) = (p1.x as f64, p1.y as f64);
     for _ in 1..=step {
+        attron(COLOR_PAIR(color));
         mvaddch(y.round() as i32, x.round() as i32, '#' as u32);
+        attroff(COLOR_PAIR(color));
         x += x_inc;
         y += y_inc;
     }
