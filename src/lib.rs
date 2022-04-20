@@ -65,13 +65,13 @@ impl Player {
     }
 
     pub fn move_forward(&mut self, step: f32) {
-        self.pos.y += self.dir().cos() * step;
-        self.pos.x += self.dir().sin() * step;
+        self.pos.y += self.dir().sin() * step;
+        self.pos.x += self.dir().cos() * step;
     }
 
     pub fn move_backward(&mut self, step: f32) {
-        self.pos.y -= self.dir().cos() * step;
-        self.pos.x -= self.dir().sin() * step;
+        self.pos.y -= self.dir().sin() * step;
+        self.pos.x -= self.dir().cos() * step;
     }
 }
 
