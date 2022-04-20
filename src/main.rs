@@ -1,6 +1,6 @@
 extern crate ncurses;
 
-use std::{char, f32::consts::PI, time::Instant};
+use std::{char, f32::consts::PI, time::Instant, process::{exit, ExitCode}};
 
 use ncurses::*;
 
@@ -33,6 +33,11 @@ fn main() {
         1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
         1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     ];
+
+    if !has_colors() {
+        eprintln!("Your terminal does not support colors.");
+        exit(-1);
+    }
 
     start_color();
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
